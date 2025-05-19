@@ -13,3 +13,6 @@ docker network create app-network
 docker run -p "8090:8080" --net=app-network --name=adminer -d adminer
 To add the volume, I've stopped and deleted my container pg-db and I recreate it (this time named myPost): docker run -d --net=app-network --name=myPost -p 5432:5432 -v pgdata:/var/lib/postgresql/data my-postgres-db
 
+1-4 Why do we need a multistage build? And explain each step of this dockerfile.
+To separate the build phase from the run phase, which results in a lighter final image, containing only what the application needs to run, not the build tools.
+
