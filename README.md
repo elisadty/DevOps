@@ -1,6 +1,6 @@
 README TP1
 
-# 1-1 For which reason is it better to run the container with a flag -e to give the environment variables rather than put them directly in the Dockerfile?
+## 1-1 For which reason is it better to run the container with a flag -e to give the environment variables rather than put them directly in the Dockerfile?
 It's better to run the container with a flag -e (environment) because it permites to keep confidentiality of the password, user etc... , it also permit to reuse the same image in a different environment.
 
 # 1-2 Why do we need a volume to be attached to our postgres container?
