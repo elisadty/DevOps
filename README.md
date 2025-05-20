@@ -73,7 +73,17 @@ volumes:
 
 
 ### 1-9 Document your publication commands and published images in dockerhub.
+I've typed those commands: 
+docker tag my-postgres-db elisadty/my-database:1.0
+docker tag simple_api_backend elisadty/my-backend:1.0
+docker tag my-custom-apache elisadty/my-httpd:1.0
 
+And just after, I push like this:
+docker push elisadty/my-database:1.0
+docker push elisadty/my-backend:1.0
+docker push elisadty/my-httpd:1.0
+
+On docker, I can see my images with the corresponding tag that I set. The tag allows to rollback to a previous version if needed, it's like a landmark.
 
 ### 1-10 Why do we put our images into an online repo?
-
+We put it on an online repo because this way, other team members or servers can pull (directly from the resgistery for servers) and use the same image.
