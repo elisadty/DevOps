@@ -1,36 +1,36 @@
 README TP1
 
-1-1 For which reason is it better to run the container with a flag -e to give the environment variables rather than put them directly in the Dockerfile?
+# 1-1 For which reason is it better to run the container with a flag -e to give the environment variables rather than put them directly in the Dockerfile?
 It's better to run the container with a flag -e (environment) because it permites to keep confidentiality of the password, user etc... , it also permit to reuse the same image in a different environment.
 
-1-2 Why do we need a volume to be attached to our postgres container?
+# 1-2 Why do we need a volume to be attached to our postgres container?
 When we stop our container without a volume, all the data of the db are deleted. With the volume, it's like an 'autosave' when we stop and start the container, we keep all of our work.
 
-1-3 Document your database container essentials: commands and Dockerfile.
+# 1-3 Document your database container essentials: commands and Dockerfile.
 Firts I build my image like this in my folder TP1: docker build -t my-postgres-db .
 Then I've created my container: docker run -d --net=app-network --name=pg-db -e POSTGRES_DB=db -e POSTGRES_USER=usr -e POSTGRES
 docker network create app-network
 docker run -p "8090:8080" --net=app-network --name=adminer -d adminer
 To add the volume, I've stopped and deleted my container pg-db and I recreate it (this time named myPost): docker run -d --net=app-network --name=myPost -p 5432:5432 -v pgdata:/var/lib/postgresql/data my-postgres-db
 
-1-4 Why do we need a multistage build? And explain each step of this dockerfile.
+# 1-4 Why do we need a multistage build? And explain each step of this dockerfile.
 We need a multistage build to separate the compilation and the runtime, which results in a lighter final image, containing only what the application needs to run, not the build tools.
 
-1-5 Why do we need a reverse proxy?
+# 1-5 Why do we need a reverse proxy?
 We need a reverse proxy because it permits (external users) to not directly access to the server (internal), it makes a "barrier" before accessing to the servers. It also improves security.
 
-1-6 Why is docker-compose so important?
+# 1-6 Why is docker-compose so important?
 Docker compose is important because it permits to manage several containers. With one file (docker-compose.yml) we can 'centralize' the run of many containers without doing it manually.
 
-1-7 Document docker-compose most important commands.
+# 1-7 Document docker-compose most important commands.
 docker compose up -d --build (start/create/run)
 docker compose logs -f (explore if problems)
 docker compose down (stop/rm containers)
 
-1-8 Document your docker-compose file.
+# 1-8 Document your docker-compose file.
 
 services:
-  # Backend service (Spring Boot application)
+  // Backend service (Spring Boot application)
   backend:
     build:
       context: backend_api/demo  # Folder containing the Dockerfile for the backend
@@ -39,7 +39,7 @@ services:
     depends_on:
       - database                 # here database is the folder that contains the dockerfile db
 
-  # PostgreSQL database service
+  // PostgreSQL database service
   database:
     build:
       context: ./database        # Folder with Dockerfile or database setup
@@ -52,7 +52,7 @@ services:
     networks:
       - app-network              
 
-  # HTTP server
+  // HTTP server
   httpd:
     build:
       context: ./Http_server     # Folder containing Apache configuration
@@ -63,17 +63,17 @@ services:
     depends_on:
       - backend                  # Waits for the backend to be available
 
-# Define the shared network between services
+// Define the shared network between services
 networks:
   app-network:
 
-# Define a named volume for persistent database storage
+// Define a named volume for persistent database storage
 volumes:
   db-data:
 
 
-1-9 Document your publication commands and published images in dockerhub.
+# 1-9 Document your publication commands and published images in dockerhub.
 
 
-1-10 Why do we put our images into an online repo?
+# 1-10 Why do we put our images into an online repo?
 
