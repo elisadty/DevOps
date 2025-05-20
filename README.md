@@ -87,3 +87,12 @@ On docker, I can see my images with the corresponding tag that I set. The tag al
 
 ### 1-10 Why do we put our images into an online repo?
 We put it on an online repo because this way, other team members or servers can pull (directly from the resgistery for servers) and use the same image.
+
+### 2-1 What are testcontainers?
+
+### 2-2 For what purpose do we need to use secured variables ?
+
+### 2-3 Why did we put needs: build-and-test-backend on this job? Maybe try without this and you will see!
+
+### 2-4 For what purpose do we need to push docker images?
+
