@@ -60,16 +60,16 @@ jobs:
 
       - name: Build image and push database
         uses: docker/build-push-action@v6
-        push: ${{ github.ref == 'refs/heads/main' }}
 
         with:
           context: Correction/database
+          push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:latest
 
       - name: Build image and push httpd
         uses: docker/build-push-action@v6
-        push: ${{ github.ref == 'refs/heads/main' }}
 
         with:
           context: Correction/http-server
+          push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:latest
