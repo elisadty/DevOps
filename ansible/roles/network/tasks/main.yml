@@ -6,7 +6,6 @@
 #     name: my_custom_network
 #     state: present
 
----
 - name: Launch PostgreSQL container
   docker_container:
     name: postgres
