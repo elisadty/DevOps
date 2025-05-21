@@ -1,7 +1,11 @@
 ---
-- name: Deploy full application
-  hosts: all
+# - name: Deploy full application
+#   hosts: all
+#   become: true
+
+- hosts: all
   become: true
+  gather_facts: true
 
   roles:
     - docker
