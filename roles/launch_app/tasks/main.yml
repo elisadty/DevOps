@@ -1,0 +1,15 @@
+---
+# tasks file for roles/launch_app
+---
+- name: Launch app container
+  docker_container:
+    name: my_app
+    image: elisadty/monapp:latest
+    ports:
+      - "5000:5000"
+    networks:
+      - name: my_custom_network
+    env:
+      DB_HOST: postgres
+      DB_USER: myuser
+      DB_PASSWORD: mypassword

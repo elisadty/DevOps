@@ -1,0 +1,14 @@
+---
+# tasks file for roles/launch_proxy
+---
+- name: Launch Nginx reverse proxy
+  docker_container:
+    name: nginx_proxy
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - name: my_custom_network
+

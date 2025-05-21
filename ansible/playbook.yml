@@ -1,14 +1,12 @@
-- hosts: all
-  gather_facts: false
-  become: true
-
-  tasks:
-    - name: Test connection
-      ping:
-
-- hosts: all
-  gather_facts: true
+---
+- name: Deploy full application
+  hosts: all
   become: true
 
   roles:
     - docker
+    - network
+    - database
+    - launch_app
+    - launch_proxy
+
