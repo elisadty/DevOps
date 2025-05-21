@@ -5,3 +5,10 @@
   tasks:
     - name: Test connection
       ping:
+
+- hosts: all
+  gather_facts: true
+  become: true
+
+  roles:
+    - docker

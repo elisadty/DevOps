@@ -61,3 +61,8 @@
         name: docker
         state: started
       tags: docker
+
+    - name: Run HTTPD
+      docker_container:
+        name: httpd
+        image: your image name from DockerHub
