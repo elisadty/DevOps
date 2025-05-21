@@ -96,3 +96,10 @@ We put it on an online repo because this way, other team members or servers can 
 
 ### 2-4 For what purpose do we need to push docker images?
 
+
+### 3-1 Document your inventory and base commands
+
+
+### 3-2 Document your playbook
+
+### 3-3 Document your docker_container tasks configuration.
