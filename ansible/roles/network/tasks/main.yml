@@ -2,7 +2,7 @@
   docker_network:
     name: my-network
     state: present
-    pull: yes
+    #pull: yes
 
   vars:
     ansible_python_interpreter: /opt/docker_venv/bin/python

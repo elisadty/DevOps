@@ -15,7 +15,5 @@
     networks:
       - name: my-network
     restart_policy: always
-    pull: yes
-
   vars:
     ansible_python_interpreter: /opt/docker_venv/bin/python
