@@ -89,52 +89,29 @@ jobs:
   deploy-to-server:
     needs: evaluate-performances
     runs-on: ubuntu-latest
- 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
- 
-      - name: Set up SSH key and known hosts
+
+      - name: Set up SSH key and config
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/elisa.darthenay
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H benoit.bassompierre.takima.cloud >> ~/.ssh/known_hosts
- 
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/elisa.darthenay #modif clef
+          chmod 600 ~/.ssh/elisa.darthenay
+          ssh-keyscan -H elisa.darthenay.takima.cloud >> ~/.ssh/known_hosts
+
+          echo "Host elisa.darthenay.takima.cloud
+            HostName elisa.darthenay.takima.cloud
+            User admin
+            IdentityFile ~/.ssh/elisa.darthenay
+            StrictHostKeyChecking=no" >> ~/.ssh/config
+
       - name: Run ansible-playbook on remote server
         working-directory: ansible
-        run: |
-          ansible-playbook -i inventories/setup.yml playbook.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: false
-
-
-  # deploy-to-server:
-  #   needs: evaluate-performances
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-
-  #     - name: Set up SSH key and config
-  #       run: |
-  #         mkdir -p ~/.ssh
-  #         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/elisa.darthenay #modif clef
-  #         chmod 600 ~/.ssh/elisa.darthenay
-  #         ssh-keyscan -H elisa.darthenay.takima.cloud >> ~/.ssh/known_hosts
-
-  #         echo "Host elisa.darthenay.takima.cloud
-  #           HostName elisa.darthenay.takima.cloud
-  #           User admin
-  #           IdentityFile ~/.ssh/elisa.darthenay
-  #           StrictHostKeyChecking=no" >> ~/.ssh/config
-
-  #     - name: Run ansible-playbook on remote server
-  #       working-directory: ansible
-  #       env:
-  #         ANSIBLE_HOST_KEY_CHECKING: false
-  #       run: |
-  #         ansible-playbook -i inventories/setup.yml playbook.yml
+        run: |
+          ansible-playbook -i inventories/setup.yml playbook.yml
 
 
 
