@@ -64,49 +64,47 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:latest
 
-  # evaluate-performances: # doesn't work
-  #   runs-on: ubuntu-24.04
-  #   needs: build-and-push-docker-image
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-
-  #     - name: Set up JDK 21
-  #       uses: actions/setup-java@v4
-  #       with:
-  #         distribution: 'temurin'
-  #         java-version: '21'
-
-  #     - name: Evaluate on SonarCloud
-  #       run: |
-  #         mvn -B verify sonar:sonar \
-  #           -Dsonar.projectKey=elisa-darthenay_Correction \
-  #           -Dsonar.organization=elisa-darthenay \
-  #           -Dsonar.host.url=https://sonarcloud.io \
-  #           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-  #       working-directory: simple-api
-
-
-  deploy-ansible:
+  evaluate-performances:
+    runs-on: ubuntu-24.04
     needs: build-and-push-docker-image
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Ansible
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pip sshpass
-          pip install ansible
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
 
-      - name: Add SSH key
+      - name: Evaluate on SonarCloud
+        run: |
+          mvn -B verify sonar:sonar \
+            -Dsonar.projectKey=elisa-darthenay_Correction \
+            -Dsonar.organization=elisa-darthenay \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        working-directory: Correction/simple-api
+
+
+deploy-to-server:
+    needs: evaluate-performances
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+ 
+      - name: Set up SSH key and known hosts
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-
-      - name: Run Ansible playbook
+          ssh-keyscan -H elisa.darthenay.takima.cloud >> ~/.ssh/known_hosts
+ 
+      - name: Run ansible-playbook on remote server
+        working-directory: ansible
         run: |
           ansible-playbook -i inventories/setup.yml playbook.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: false
