@@ -72,3 +72,28 @@ jobs:
 
 
 #this is what I type in my powershell but it doesn't works(apparement erreur de réseau): mvn --file pom.xml -B verify sonar:sonar "-Dsonar.projectKey=elisadty" "-Dsonar.organization=elisadty" "-Dsonar.host.url=https://sonarcloud.io" "-Dsonar.login=$env:SONAR_TOKEN"
+
+  deploy-ansible:
+    needs: build-and-push-docker-image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip sshpass
+          pip install ansible
+
+      - name: Add SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Run Ansible playbook
+        run: |
+          ansible-playbook -i inventories/setup.yml playbook.yml

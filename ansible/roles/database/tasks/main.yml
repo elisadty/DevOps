@@ -6,8 +6,6 @@
       POSTGRES_PASSWORD: pwd
     ports:
       - "5432:5432"
-    # volumes:
-    #   - db-volume:/var/lib/postgresql/data
     networks:
       - name: my-network
     restart_policy: always

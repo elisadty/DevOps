@@ -1,16 +1,12 @@
----
-# - name: Deploy full application
-#   hosts: all
-#   become: true
-
-- hosts: all
-  become: true
+# This playbook runs on all hosts with "privilege" access (become) and gathers facts
+- hosts: all 
+  become: true 
   gather_facts: true
 
   roles:
-    - install_docker
-    - network
-    - database
-    - launch_app
-    - launch_proxy
+    - install_docker   # Installs Docker on the hosts
+    - network          # Configures the network settings
+    - database         # Sets up the database service
+    - launch_app       # Deploys the main application
+    - launch_proxy     # Deploys the proxy service
 

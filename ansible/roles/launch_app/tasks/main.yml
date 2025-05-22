@@ -2,7 +2,7 @@
 # tasks file for roles/launch_app
 
 - name: Run Spring Boot API container
-  community.docker.docker_container:
+  docker_container:
     name: simple-api
     image: elisadty/tp-devops-simple-api
     env:
