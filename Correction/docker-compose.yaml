@@ -20,7 +20,7 @@ services:
   httpd:
     build: "http-server"
     ports:
-      - "80:80"
+      - "82:80"
     networks:
       - my-network
 

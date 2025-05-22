@@ -8,7 +8,7 @@
   gather_facts: true
 
   roles:
-    - docker
+    - install_docker
     - network
     - database
     - launch_app

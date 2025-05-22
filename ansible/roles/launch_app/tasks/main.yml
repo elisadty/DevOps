@@ -1,15 +1,20 @@
 
 # tasks file for roles/launch_app
 
-- name: Launch app container
-  docker_container:
-    name: my_app
-    image: elisadty/monapp:latest
-    ports:
-      - "5000:5000"
-    networks:
-      - name: my_custom_network
+- name: Run Spring Boot API container
+  community.docker.docker_container:
+    name: simple-api
+    image: elisadty/tp-devops-simple-api
     env:
-      DB_HOST: postgres
-      DB_USER: myuser
-      DB_PASSWORD: mypassword
+      DATABASE_HOST: database
+      DATABASE_PASSWORD: pwd
+    ports:
+      - "8082:8080"
+    networks:
+      - name: my-network
+    # networks_cli_compatible: yes
+    # container_default_behavior: compatibility
+    # state: started
+    restart_policy: always
+  vars:
+    ansible_python_interpreter: /opt/docker_venv/bin/python

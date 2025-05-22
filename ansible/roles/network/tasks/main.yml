@@ -1,20 +1,6 @@
-
-# tasks file for roles/network
-# ---
-# - name: Create Docker network
-#   docker_network:
-#     name: my_custom_network
-#     state: present
-
-- name: Launch PostgreSQL container
-  docker_container:
-    name: postgres
-    image: postgres:13
-    env:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydb
-    ports:
-      - "5432:5432"
-    networks:
-      - name: my_custom_network
+- name: Create Docker network
+  docker_network:
+    name: my-network
+    state: present
+  vars:
+    ansible_python_interpreter: /opt/docker_venv/bin/python

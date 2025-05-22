@@ -1,13 +1,13 @@
----
-# tasks file for roles/launch_proxy
-- name: Launch Nginx reverse proxy
+
+- name: Run HTTP proxy container
   docker_container:
-    name: nginx_proxy
-    image: nginx:latest
+    name: httpd
+    image: elisadty/tp-devops-httpd
     ports:
       - "80:80"
-    volumes:
-      - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
-      - name: my_custom_network
-
+      - name: my-network
+    restart_policy: always
+    state: started
+  vars:
+    ansible_python_interpreter: /opt/docker_venv/bin/python
