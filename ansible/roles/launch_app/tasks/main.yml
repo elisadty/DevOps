@@ -5,7 +5,7 @@
   docker_container:
     name: simple-api
     image: elisadty/tp-devops-simple-api
-    pull: true
+    pull: yes
 
     env:
       DATABASE_HOST: database
@@ -14,9 +14,8 @@
       - "8082:8080"
     networks:
       - name: my-network
-    # networks_cli_compatible: yes
-    # container_default_behavior: compatibility
-    # state: started
     restart_policy: always
+    pull: yes
+
   vars:
     ansible_python_interpreter: /opt/docker_venv/bin/python
