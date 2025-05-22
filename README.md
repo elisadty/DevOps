@@ -89,19 +89,15 @@ On docker, I can see my images with the corresponding tag that I set. The tag al
 We put it on an online repo because this way, other team members or servers can pull (directly from the resgistery for servers) and use the same image.
 
 ### 2-1 What are testcontainers?
-It's a Java library that use Docker containers in automated testing. (ex: postgres)
+It's a Java library that use Docker containers in automated testing. 
 
 ### 2-2 For what purpose do we need to use secured variables ?
-
+We need to use secured variables to store sensitive data (like our SSH keys, the token, and password) securely in GitHub, without divulgin it in code.
 
 ### 2-3 Why did we put needs: build-and-test-backend on this job? Maybe try without this and you will see!
+We put needs to make sure this job runs only if the backend was built and tested successfully. Without it, the job might run even if the build fails, which would break the CI process.
 
 ### 2-4 For what purpose do we need to push docker images?
+We push Docker images to Docker Hub so they can be downloaded and run on the server using Ansible.
 
 
-### 3-1 Document your inventory and base commands
-
-
-### 3-2 Document your playbook
-
-### 3-3 Document your docker_container tasks configuration.
