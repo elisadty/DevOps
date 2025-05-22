@@ -5,6 +5,8 @@
   docker_container:
     name: simple-api
     image: elisadty/tp-devops-simple-api
+    pull: true
+
     env:
       DATABASE_HOST: database
       DATABASE_PASSWORD: pwd

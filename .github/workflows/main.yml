@@ -80,8 +80,8 @@ jobs:
       - name: Evaluate on SonarCloud
         run: |
           mvn -B verify sonar:sonar \
-            -Dsonar.projectKey=elisa-darthenay_Correction \
-            -Dsonar.organization=elisa-darthenay \
+            -Dsonar.projectKey=elisadty_DevOps \
+            -Dsonar.organization=elisadty \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         working-directory: Correction/simple-api
@@ -106,3 +106,7 @@ jobs:
             ansible-playbook -i inventories/setup.yml playbook.yml
           env:
             ANSIBLE_HOST_KEY_CHECKING: false
+
+
+
+            
