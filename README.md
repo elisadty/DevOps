@@ -101,3 +101,16 @@ We put needs to make sure this job runs only if the backend was built and tested
 We push Docker images to Docker Hub so they can be downloaded and run on the server using Ansible.
 
 
+### 3-1 Document your inventory and base commands
+
+in the setup.yml: 
+all:
+  vars:
+    ansible_user: admin
+    ansible_ssh_private_key_file: /home/elisadty/.ssh/elisa.darthenay
+  children:
+    prod:
+      hosts:
+        elisa.darthenay.takima.cloud:
+
+run in the vm: ansible-playbook -i inventories/setup.yml playbook.yml
