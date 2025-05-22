@@ -64,7 +64,7 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:latest
 
-  # evaluate-performances:
+  # evaluate-performances: # doesn't work
   #   runs-on: ubuntu-24.04
   #   needs: build-and-push-docker-image
   #   steps:
@@ -85,6 +85,7 @@ jobs:
   #           -Dsonar.host.url=https://sonarcloud.io \
   #           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
   #       working-directory: simple-api
+
 
   deploy-ansible:
     needs: build-and-push-docker-image
