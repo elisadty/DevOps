@@ -97,7 +97,7 @@ jobs:
       - name: Set up SSH key and known hosts
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/elisa.darthenay
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H benoit.bassompierre.takima.cloud >> ~/.ssh/known_hosts
  
