@@ -96,7 +96,7 @@ jobs:
       - name: Set up SSH key and config
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/elisa.darthenay
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/elisa.darthenay #modif clef
           chmod 600 ~/.ssh/elisa.darthenay
           ssh-keyscan -H elisa.darthenay.takima.cloud >> ~/.ssh/known_hosts
 
